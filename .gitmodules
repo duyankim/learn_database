@@ -1,0 +1,3 @@
+[submodule "DBconnect/learn_database"]
+	path = DBconnect/learn_database
+	url = https://github.com/duyankim/learn_database.git
