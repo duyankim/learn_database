@@ -75,27 +75,25 @@ public class Parkinglot2 {
 		List<Integer> removeIdx = new ArrayList<>();									// 삭제할 필드의 인덱스를 저장하는 ArrayList다.
 		try {																			// null값을 넣으려면 insert할 때 해당 null값의 필드를 빼고 insert하면 된다.
 			for (int idx = 0; idx < 11; idx++) {										// 따라서 빈칸이거나 데이터가 올바르지 않은 필드를 제외시키기 위해서
-				if (field[idx] == null || field[idx].isBlank()) {						//
-					removeIdx.add(idx);
-				} else {
-					if (idx == 0 || idx == 2 || idx == 3 || idx == 10 && field[idx] != null) {
-						values.append(field[idx] + ", ");
-					} else if(field[idx] != null) {
-						values.append("'" + field[idx] + "', ");
+				if (field[idx] == null || field[idx].isBlank()) {						// 만약 필드의 value가 null이거나 빈칸일 경우에 조건을 만족시켜
+					removeIdx.add(idx);													// 삭제할 인덱스 list에 해당 인덱스 값을 넣고 쿼리문에 넣지 않는다.
+				} else {																// remove메소드를 사용하지 않고 removeIdx list를 만든 이유는 
+					if (idx == 0 || idx == 2 || idx == 3 || idx == 10 && field[idx] != null) {	// 요소를 remove하고 배열의 인덱스가 실시간으로 변경되는 것을 막기 위함이다.
+						values.append(field[idx] + ", ");								// Strinbuilder에 위도, 경도 등의 int값을 넣는 형식이다.
+					} else if(field[idx] != null) {										// else로 varchar타입의 데이터를 받아서
+						values.append("'" + field[idx] + "', ");						// 작은 따옴표로 value를 감싸서 StringBuffer에 넣는다.
 					}
 				}
 			}
-		} catch (Exception e1) {
+		} catch (Exception e1) {														// 예외 처리를 한다.
 			e1.printStackTrace();
 		}
-		
-		for (int i : removeIdx) {
-			field_name.remove(i);
+		for (int i : removeIdx) {														// removeIdx에 들어간 인덱스들을 반복문으로 하나씩 가져와
+			field_name.remove(i);														// 필드 이름 list에서 지운다.
 		}
-		
-		String fields = "insert into public_parking_lot(" + String.join(", ", field_name) + ") values(";
-		QueryTxt = fields + values.substring(0, values.length()-2) + ");";
-		return QueryTxt;
+		String fields = "insert into public_parking_lot(" + String.join(", ", field_name) + ") values("; // 쿼리문의 형식에 맞게 insert into 테이블명을 붙여주고,
+		QueryTxt = fields + values.substring(0, values.length()-2) + ");";								// 필드 이름과 필드 value를 붙인다.
+		return QueryTxt;																				// StringBuffer는 substring메소드를 사용해 String이 될 수 있다. 
 	}
 	
 	
