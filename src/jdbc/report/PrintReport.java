@@ -38,7 +38,7 @@ public class PrintReport {
 			
 			HeaderPrint(page+1); 																			// 헤더인쇄
 			rset = stmt.executeQuery("select *, kor+eng+mat, (kor+eng+mat)/3 "
-					+ "from grade_report limit " + begin + "," + end +";");
+					+ "from grade_report limit " + begin + "," + thisPageLines +";");
 			while (rset.next()) {
 				ItemPrint(rset);
 			}
@@ -96,6 +96,5 @@ public class PrintReport {
 				rset.getInt(1), rset.getInt(2), rset.getInt(3), rset.getInt(4), rset.getDouble(5));									// 총점에 대한 합계를 3으로 나누어 평균의 평균을 계산하였다.
 		System.out.printf(" %-4s%7s  %6d  %6d  %6d  %6d %8.1f\n", "평균", " ", 								// 국영수합계의 총점에 대한 평균을 계산하였다.
 				rset.getInt(6), rset.getInt(7), rset.getInt(8), rset.getInt(9), rset.getDouble(10));									// 총점에 대한 합계를 3으로 나누어 평균의 평균을 계산하였다.
-		System.out.println();
 	}
 }
