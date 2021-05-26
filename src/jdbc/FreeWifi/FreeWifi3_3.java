@@ -18,7 +18,7 @@ public class FreeWifi3_3 {
 		
 		String QueryTxt;
 		
-		QueryTxt = "select * from freewifi freewifi where service_provider='SKT'";
+		QueryTxt = "select * from freewifi where service_provider='SKT'";
 		
 		ResultSet rset = stmt.executeQuery(QueryTxt);
 		int iCnt = 0;
